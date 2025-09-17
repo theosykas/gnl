@@ -28,7 +28,7 @@ void	ft_bzero(void *s, size_t n)
 	}
 }
 
-int	ft_strlen(char const *s)
+int	ft_strlen(char *s)
 {
 	int	len;
 
@@ -46,8 +46,10 @@ char	*ft_strjoin(char *s1, char *s2)
 	int		i;
 	int		j;
 
-	if (!s1 && !s2)
-		return (ft_strdup(""));
+	if (!s1)
+		s1 = ft_strdup("");
+	if (!s2)
+		s2 = ft_strdup("");
 	join = allocate_buff(ft_strlen(s1) + ft_strlen(s2) + 1, sizeof(char));
 	if (!join)
 		return (NULL);
@@ -96,9 +98,10 @@ char	*ft_strdup(char *s1)
 	i = 0;
 	while (s1[i])
 	{
-		ft_strcpy(dup, s1);
+		dup[i] = s1[i];
 		i++;
 	}
+	dup[i] = '\0';
 	return (dup);
 }
 
