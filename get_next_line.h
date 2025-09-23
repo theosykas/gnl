@@ -6,7 +6,7 @@
 /*   By: theo <theo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 15:35:43 by theo              #+#    #+#             */
-/*   Updated: 2025/09/23 13:07:50 by theo             ###   ########.fr       */
+/*   Updated: 2025/09/23 19:26:48 by theo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,6 @@ char	*ft_strchr(const char *s, int c);
 //char	*ft_strcpy(char *s1, char const *s2);
 char	*ft_strdup(char *s1);
 
-
-//int	main(void);
-
 #endif
 
-/*funct : read, malloc*/
-
-/*Read line: correct behavior
-NULL: there is nothing else to read, or an error
-occurred*/
-
 //cc -Wall -Wextra -Werror -D BUFFER_SIZE=42 <files>.c
-
-
-/*Tu read BUFFER SIZE octet , que tu stock dans in buffer à chaque lecture tu concatene dans stash ta concatenation t’envoie un nouveau stash a chaque fois et le stash avant la concaténation tu le free , ensuite
-C un strjoin un peu modifier*/

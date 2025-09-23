@@ -6,7 +6,7 @@
 /*   By: theo <theo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 20:31:49 by theo              #+#    #+#             */
-/*   Updated: 2025/09/23 18:22:52 by theo             ###   ########.fr       */
+/*   Updated: 2025/09/23 19:26:11 by theo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,6 @@ char	*get_next_line(int fd)
 }
 //printf("|%s|\n", stash);
 
-//cc -Wall -Wextra -Werror -D BUFFER_SIZE=42 <files>.c
 /*
 int	main(void)
 {
@@ -141,7 +140,3 @@ int	main(void)
 	return (0);
 }
 */
-/*	•	Leak summary :
-	•	definitely lost: 2 bytes in 1 blocks → tu as perdu 2 octets, plus aucun pointeur n’y mène (fuite certaine).*/
-
-//read == 0 / EOF

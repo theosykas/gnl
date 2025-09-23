@@ -6,7 +6,7 @@
 /*   By: theo <theo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 20:31:27 by theo              #+#    #+#             */
-/*   Updated: 2025/09/23 13:03:51 by theo             ###   ########.fr       */
+/*   Updated: 2025/09/23 19:27:56 by theo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	int		j;
 
 	if (!s1)
-		s1 = ft_strdup("");
-	if (!s2)
-		s2 = ft_strdup("");
+		return (ft_strdup(s2));
 	join = allocate_buff(ft_strlen(s1) + ft_strlen(s2) + 1, sizeof(char));
 	if (!join)
 		return (NULL);
