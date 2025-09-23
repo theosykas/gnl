@@ -6,7 +6,7 @@
 /*   By: theo <theo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 20:31:49 by theo              #+#    #+#             */
-/*   Updated: 2025/09/23 13:12:06 by theo             ###   ########.fr       */
+/*   Updated: 2025/09/23 18:22:52 by theo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,46 +35,47 @@ char	*clean_stash(char *stash)
 	while (stash[i] && stash[i] != '\n')
 			i++;
 	if (!stash[i])
+	{
+		free(stash);
 		return (NULL);
+	}
 	i++; // avance apres \n+
 	new_stash = allocate_buff(ft_strlen(stash + i) + 1, sizeof(char));
 	if (!new_stash)
 		return (NULL);
 	j = 0;
 	while (stash[i] != '\0')
-	{
-		new_stash[j] = stash[i];
-		i++;
-		j++;
-	}
+		new_stash[j++] = stash[i++];
 	new_stash[j] = '\0';
 	free(stash);
-	//printf("%s", new_stash);
 	return (new_stash);
 }
+//printf("%s", new_stash);
 
 char	*read_and_stash(int fd, char *s)
 {
 	int		read_bytes;
-	char	buff[BUFFER_SIZE + 1];
+	char	*buff;
 	char	*tmp;
 
-	if (!s)
-		s = ft_strdup("");
+	buff = allocate_buff(BUFFER_SIZE + 1, sizeof(char));
 	read_bytes = read(fd, buff, BUFFER_SIZE);
 	if (read_bytes == -1)
+	{
+		free(buff);
 		return (NULL);
+	}
 	while (read_bytes > 0)
 	{
 		buff[read_bytes] = '\0';
 		tmp = s;
 		s = ft_strjoin(s, buff);
+		free(tmp);
 		if (ft_strchr(buff, '\n'))
 			break ;
-		if (tmp)
-			free(tmp);
 		read_bytes = read(fd, buff, BUFFER_SIZE);
 	}
+	free(buff);
 	return (s);
 }
 
@@ -97,9 +98,9 @@ char	*extract_line(char *stash)
 	if (stash[i] == '\n')
 	{
 		line[i] = '\n';
-		i++; // -> '\0'
+		i++;
 	}
-	line[i] = '\0'; // termine stash avec un '\0'
+	line[i] = '\0';
 	return (line);
 }
 
@@ -108,16 +109,16 @@ char	*get_next_line(int fd)
 	static char	*stash;
 	char	*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0) // stdin -> (0)
-		return (NULL);
+	if (fd < 0)
+		return (NULL); // stdin -> (0)
 	stash = read_and_stash(fd, stash);
 	line = extract_line(stash);
 	if (!line)
-			return (NULL);
+		return (NULL);
 	stash = clean_stash(stash);
-	//printf("|%s|\n", stash);
 	return (line);
 }
+//printf("|%s|\n", stash);
 
 //cc -Wall -Wextra -Werror -D BUFFER_SIZE=42 <files>.c
 /*
