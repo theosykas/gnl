@@ -6,7 +6,7 @@
 /*   By: theo <theo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 20:31:27 by theo              #+#    #+#             */
-/*   Updated: 2025/09/07 04:58:00 by theo             ###   ########.fr       */
+/*   Updated: 2025/09/23 13:03:51 by theo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,20 +69,24 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (join);
 }
 
-char	*ft_strcpy(char *s1, char const *s2)
+char	*ft_strchr(const char *s, int c)
 {
-	int	i;
+	int		i;
+	char	*tmp;
 
-	if (!s1 || !s2)
-		return (NULL);
 	i = 0;
-	while (s2[i])
+	if (!s)
+		return (NULL);
+	tmp = (char *)s;
+	while (s[i])
 	{
-		s1[i] = s2[i];
+		if (s[i] == (char)c)
+			return (tmp + i);
 		i++;
 	}
-	s1[i] = '\0';
-	return (s1);
+	if ((char)c == '\0')
+		return (tmp + i);
+	return (NULL);
 }
 
 char	*ft_strdup(char *s1)

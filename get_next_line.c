@@ -6,7 +6,7 @@
 /*   By: theo <theo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 20:31:49 by theo              #+#    #+#             */
-/*   Updated: 2025/09/07 05:03:07 by theo             ###   ########.fr       */
+/*   Updated: 2025/09/23 13:12:06 by theo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*clean_stash(char *stash)
 			i++;
 	if (!stash[i])
 		return (NULL);
-	i++; // avance apres \n
+	i++; // avance apres \n+
 	new_stash = allocate_buff(ft_strlen(stash + i) + 1, sizeof(char));
 	if (!new_stash)
 		return (NULL);
@@ -69,6 +69,8 @@ char	*read_and_stash(int fd, char *s)
 		buff[read_bytes] = '\0';
 		tmp = s;
 		s = ft_strjoin(s, buff);
+		if (ft_strchr(buff, '\n'))
+			break ;
 		if (tmp)
 			free(tmp);
 		read_bytes = read(fd, buff, BUFFER_SIZE);
@@ -106,10 +108,9 @@ char	*get_next_line(int fd)
 	static char	*stash;
 	char	*line;
 
-	if (fd < 0) // stdin -> (0)
+	if (fd < 0 || BUFFER_SIZE <= 0) // stdin -> (0)
 		return (NULL);
-//	if (!stash)
-		stash = read_and_stash(fd, stash);
+	stash = read_and_stash(fd, stash);
 	line = extract_line(stash);
 	if (!line)
 			return (NULL);
@@ -119,7 +120,7 @@ char	*get_next_line(int fd)
 }
 
 //cc -Wall -Wextra -Werror -D BUFFER_SIZE=42 <files>.c
-
+/*
 int	main(void)
 {
 	int	fd;
@@ -138,5 +139,8 @@ int	main(void)
 	close(fd);
 	return (0);
 }
+*/
+/*	•	Leak summary :
+	•	definitely lost: 2 bytes in 1 blocks → tu as perdu 2 octets, plus aucun pointeur n’y mène (fuite certaine).*/
 
 //read == 0 / EOF
